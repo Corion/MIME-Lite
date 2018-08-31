@@ -1,6 +1,6 @@
 package MIME::Lite;
 use strict;
-require 5.004;    ### for /c modifier in m/\G.../gc modifier
+require 5.005;    ### for /c modifier in m/\G.../gc modifier and \A..\z
 
 =head1 NAME
 
