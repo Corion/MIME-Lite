@@ -12,17 +12,17 @@ my %extra_prereq = (
   'MIME::QuotedPrint' => undef,
 );
 
-for my $module (sort keys %extra_prereq) {
-  local $@;
-  my $ok = eval "require $module; \$extra_prereq{\$module} && \$module->VERSION(\$extra_prereq{\$module}); 1";
-  $prereq{ $module } = delete $extra_prereq{ $module } if $ok;
-}
-
 my %prereq = (
   'File::Spec'          => 0,
   'File::Basename'      => 0,
   'Email::Date::Format' => '1.000', # first release
 );
+
+for my $module (sort keys %extra_prereq) {
+  local $@;
+  my $ok = eval "require $module; \$extra_prereq{\$module} && \$module->VERSION(\$extra_prereq{\$module}); 1";
+  $prereq{ $module } = delete $extra_prereq{ $module } if $ok;
+}
 
 if (%extra_prereq) {
   print "MIME::Lite is designed to take advantage of a variety of external modules\n",
@@ -41,7 +41,7 @@ if (%extra_prereq) {
 # Write the Makefile:
 WriteMakefile1(
   NAME         => 'MIME::Lite',
-  LICENSE => 'perl'
+  LICENSE => 'perl',
   VERSION_FROM => "lib/MIME/Lite.pm",
   DISTNAME     => "MIME-Lite",
   'dist'       => {
@@ -53,7 +53,7 @@ WriteMakefile1(
     resources => {
       repository => 'http://github.com/rjbs/MIME-Lite'
     }
-  }
+  },
   'PREREQ_PM'    => \%prereq,
   MIN_PERL_VERSION => '5.004',
   BUILD_REQUIRES => {
